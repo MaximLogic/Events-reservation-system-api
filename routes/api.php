@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\EventController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,10 +18,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 //Event Routes
-Route::controller(EventController::class)->group(function() {
-    Route::get('/events', 'index');
-    Route::get('/events/{event}', 'show')->whereNumber('event');
-    Route::post('/events', 'store');
-    Route::put('/events/{event}', 'update')->whereNumber('event');
-    Route::delete('/events/{event}', 'destroy')->whereNumber('event');
-});
+Route::group(['namespace' => 'App\Http\Controllers\Event'], function() {
+    Route::get('/events', 'IndexController');
+    Route::get('/events/{event}', 'ShowController')->whereNumber('event');
+    Route::post('/events', 'StoreController');
+    Route::put('/events/{event}', 'UpdateController')->whereNumber('event');
+    Route::delete('/events/{event}', 'DestroyController')->whereNumber('event');
+})->middleware('api');
