@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Event;
 use App\Models\Event;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Event\StoreRequest;
+use App\Http\Resources\Event\Resource;
 
 class StoreController extends Controller
 {
@@ -15,6 +16,6 @@ class StoreController extends Controller
     {
         $data = $request->validated();
         $event = Event::firstOrCreate($data);
-        return $event;
+        return new Resource($event);
     }
 }

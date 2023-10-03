@@ -6,6 +6,7 @@ use App\Models\Event;
 use App\Http\Controllers\Controller;
 use App\Http\Filters\EventFilter;
 use App\Http\Requests\Event\FilterRequest;
+use App\Http\Resources\Event\Resource;
 
 class IndexController extends Controller
 {
@@ -16,6 +17,7 @@ class IndexController extends Controller
     {
         $data = $request->validated();
         $filter = app()->make(EventFilter::class, ['queryParams' => array_filter($data)]);
-        return Event::filter($filter)->get();
+        $events = Event::filter($filter)->get();
+        return Resource::collection($events);
     }
 }

@@ -22,16 +22,16 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'string|max:255|required',
-            'date_time' => 'date_format:Y-m-d H:i:s|required',
-            'end_time' => 'date_format:Y-m-d H:i:s|required',
-            'venue' => 'string|max:255|required',
+            'title' => 'string|max:255',
+            'date_time' => 'date_format:Y-m-d H:i:s',
+            'end_time' => 'date_format:Y-m-d H:i:s',
+            'venue' => 'string|max:255',
             'category_id' => 'numeric|nullable',
-            'price' => 'numeric|required',
-            'description' => 'required',
-            'user_id' => 'numeric|required',
-            'seats' => 'numeric|required',
-            'image' => 'string|required'
+            'price' => 'numeric',
+            'description' => '',
+            'user_id' => 'numeric',
+            'seats' => 'numeric',
+            'image' => 'string'
         ];
     }
 }

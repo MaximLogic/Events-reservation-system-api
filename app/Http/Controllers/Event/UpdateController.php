@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Event;
 use App\Models\Event;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Event\UpdateRequest;
+use App\Http\Resources\Event\Resource;
 
 class UpdateController extends Controller
 {
@@ -15,6 +16,6 @@ class UpdateController extends Controller
     {
         $data = $request->validated();
         $event->update($data);
-        return $event;
+        return new Resource($event);
     }
 }
