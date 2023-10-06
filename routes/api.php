@@ -25,3 +25,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Event'], function() {
     Route::put('/events/{event}', 'UpdateController')->whereNumber('event');
     Route::delete('/events/{event}', 'DestroyController')->whereNumber('event');
 })->middleware('api');
+
+Route::get('sanct', function(){
+    return "Hello";
+})->middleware('auth:sanctum');

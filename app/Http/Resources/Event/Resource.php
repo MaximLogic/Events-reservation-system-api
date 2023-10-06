@@ -4,6 +4,7 @@ namespace App\Http\Resources\Event;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 
 class Resource extends JsonResource
 {
@@ -14,6 +15,8 @@ class Resource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $usersCount = count($this->users);
+
         return [
             "id" => $this->id,
             "title" => $this->title,
@@ -26,7 +29,8 @@ class Resource extends JsonResource
             "user_id" => $this->user_id,
             "seats" => $this->seats,
             "image" => $this->image,
-            "status" => $this->status
+            "status" => $this->status,
+            "users_count" => $usersCount
         ];
     }
 }
