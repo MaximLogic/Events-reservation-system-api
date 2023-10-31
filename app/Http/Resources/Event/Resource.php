@@ -30,7 +30,7 @@ class Resource extends JsonResource
             "seats" => $this->seats,
             "image" => $this->image,
             "status" => $this->status,
-            "users_count" => $usersCount
+            "reserved_seats" => $usersCount
         ];
     }
 }
