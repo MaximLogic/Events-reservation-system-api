@@ -21,11 +21,18 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(['namespace' => 'App\Http\Controllers\Event'], function() {
     Route::get('/events', 'IndexController');
     Route::get('/events/{event}', 'ShowController')->whereNumber('event');
-    Route::post('/events', 'StoreController');
-    Route::put('/events/{event}', 'UpdateController')->whereNumber('event');
-    Route::delete('/events/{event}', 'DestroyController')->whereNumber('event');
+    Route::group(['middleware' => ['auth:sanctum', 'admin.acces']], function() {
+        Route::post('/events', 'StoreController');
+        Route::put('/events/{event}', 'UpdateController')->whereNumber('event');
+        Route::delete('/events/{event}', 'DestroyController')->whereNumber('event');
+    });
 })->middleware('api');
 
 Route::get('sanct', function(){
     return "Hello";
 })->middleware('auth:sanctum');
+
+Route::get('/testadmin', function()
+{
+    return 'test';
+})->middleware(['auth:sanctum', 'admin.acces']);
