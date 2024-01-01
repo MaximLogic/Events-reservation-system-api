@@ -17,6 +17,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::middleware('auth:sanctum')->get('/subscribed', 'App\Http\Controllers\EventUserController@index');
+Route::middleware('auth:sanctum')->post('/subscribe', 'App\Http\Controllers\EventUserController@store');
+
 //Event Routes
 Route::group(['namespace' => 'App\Http\Controllers\Event'], function() {
     Route::get('/events', 'IndexController');
