@@ -28,9 +28,9 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
 Route::group(['namespace' => 'App\Http\Controllers\Event'], function() {
     Route::get('/events', 'IndexController');
     Route::get('/events/{event}', 'ShowController')->whereNumber('event');
-    Route::group(['middleware' => ['auth:sanctum', 'admin.acces']], function() {
+    Route::put('/events/{event}', 'UpdateController')->whereNumber('event')->middleware('auth:sanctum');
+    Route::group(['middleware' => ['auth:sanctum', 'admin.access']], function() {
         Route::post('/events', 'StoreController');
-        Route::put('/events/{event}', 'UpdateController')->whereNumber('event');
         Route::delete('/events/{event}', 'DestroyController')->whereNumber('event');
     });
 })->middleware('api');

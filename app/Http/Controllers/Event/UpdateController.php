@@ -6,6 +6,7 @@ use App\Models\Event;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Event\UpdateRequest;
 use App\Http\Resources\Event\Resource;
+use Illuminate\Support\Facades\Auth;
 
 class UpdateController extends Controller
 {
@@ -14,8 +15,13 @@ class UpdateController extends Controller
      */
     public function __invoke(UpdateRequest $request, Event $event)
     {
-        $data = $request->validated();
-        $event->update($data);
-        return new Resource($event);
+        $user = Auth::user();
+        if($event->user_id == $user->id || $user->role === 'Admin')
+        {
+            $data = $request->validated();
+            $event->update($data);
+            return new Resource($event);
+        }
+        return response()->json(['message' => 'Forbidden'], 403);
     }
 }
