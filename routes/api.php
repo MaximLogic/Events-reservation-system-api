@@ -17,8 +17,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware('auth:sanctum')->get('/subscribed', 'App\Http\Controllers\EventUserController@index');
-Route::middleware('auth:sanctum')->post('/subscribe', 'App\Http\Controllers\EventUserController@store');
+
+Route::group(['middleware' => 'auth:sanctum'], function() {
+    Route::get('/subscribe', 'App\Http\Controllers\EventUserController@index');
+    Route::post('/subscribe', 'App\Http\Controllers\EventUserController@store');
+    Route::delete('/subscribe', 'App\Http\Controllers\EventUserController@destroy');
+});
 
 //Event Routes
 Route::group(['namespace' => 'App\Http\Controllers\Event'], function() {

@@ -56,8 +56,18 @@ class EventUserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(EventUser $eventUser)
+    public function destroy(Request $request)
     {
-        //
+        $userId = Auth::id();
+        $eventId = $request->id;
+
+        $eventUser = EventUser::where('event_id', $eventId)->where('user_id', $userId)->first();
+
+        if($eventUser)
+        {
+            $eventUser->delete();
+            return response()->json(['message' => 'Unbooked succesfully'], 200);
+        }
+        return response()->json(['message' => 'You didn\'t book ticket to this event'], 400);
     }
 }
